@@ -1,37 +1,37 @@
-$.fn.trackMap = function(options) {
-    var defaults = {
-        /* defaults */
+$.fn.track_map = function(options) {
+    var defaultValue = {
+        /* defaultValue */
     };
-    options = $.extend({}, defaults, options);
+    options = $.extend({}, defaultValue, options);
 
-    var mapOptions = {
-            center: new google.maps.LatLng(options.latitude,options.longitude),
+    var Options_map = {
+            center: new google.maps.LatitudeLongitude(options.latitude,options.longitude),
             zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         },
-        map = new google.maps.Map(this[0], mapOptions),
-        pos = new google.maps.LatLng(options.latitude,options.longitude);
+        map = new google.maps.Map(this[0], Options_map),
+        pos = new google.maps.LatitudeLongitude(options.latitude,options.longitude);
 
-    var marker = new google.maps.Marker({
-        position: pos,
+    var locator = new google.maps.Marker({
+        location: pos,
         title: options.title,
         icon: options.icon
     });
 
-    marker.setMap(map);
+    locator.set_track_map(map);
 
     options.feed.update(function(latitude, longitude) {
-        marker.setMap(null);
-        var newLatLng = new google.maps.LatLng(latitude, longitude);
-        marker.position = newLatLng;
-        marker.setMap(map);
-        map.setCenter(newLatLng);
+        locator.set_track_map(null);
+        var newLatitudeLongitude = new google.maps.LatitudeLongitude(latitude, longitude);
+        locator.location = newLatitudeLongitude;
+        locator.set_track_map(map);
+        map.setCenter(newLatitudeLongitude);
     });
 
     return this;
 };
 
-var updater = (function() {
+var pushToUpdate = (function() {
     // private properties
 
     return {
@@ -41,10 +41,10 @@ var updater = (function() {
     };
 })();
 
-$("#map_canvas").trackMap({
-    latitude: 35.044640193770725,
-    longitude: -89.98193264007568,
-    icon: 'http://bit.ly/zjnGDe',
-    title: 'Tracking Number: 12345',
-    feed: updater
+$("#map_canvas").track_map({
+    latitude: 35.0254640193770715,
+    longitude: -89.91593264007468,
+    icon: 'http://bit.ly/zjnGge',
+    title: 'Trackable Id: 57812',
+    feed: pushToUpdate
 });
